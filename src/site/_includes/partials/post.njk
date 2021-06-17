@@ -93,7 +93,8 @@
 
     <div class="w-chips">
       {% for tag in tags | findTags %}
-        <a class="w-chip" href="{{ tag.href }}">{{ tag.title }}</a>
+        {% set tagString = 'i18n.tags.' + tag.key + '.title' %}
+        <a class="w-chip" href="{{ tag.href }}">{{ tagString | i18n(locale) }}</a>
       {% endfor %}
     </div>
 

@@ -19,6 +19,7 @@ const {Img} = require('./Img');
 const md = require('markdown-it')();
 const constants = require('../../_utils/constants');
 const tagsCollection = require('../../_collections/tags')();
+const {addFields} = require('../../_collections/hooks/utils');
 
 const AuthorsDate = require('./AuthorsDate');
 
@@ -44,7 +45,8 @@ class BaseCard {
     for (const tag of this.data.tags || []) {
       const foundTag = tagsCollection[tag.toLowerCase()];
       if (foundTag) {
-        this.displayedTags.push(foundTag);
+        const expandedFoundTag = addFields([foundTag], 'i18n.tags')[0];
+        this.displayedTags.push(expandedFoundTag);
       }
       if (this.displayedTags.length === constants.POST_CARD_CHIP_COUNT) {
         break;
